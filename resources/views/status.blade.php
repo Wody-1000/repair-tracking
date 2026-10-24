@@ -3,19 +3,10 @@
 
 @section('hero')
 <style>
-/* Hero art: one static graphics card, fans turn slowly */
-.gpu { margin-top:32px; max-width:480px; }
-.gpu svg { display:block; width:100%; height:auto; filter:drop-shadow(0 18px 22px rgba(0,0,0,.55)); }
-.spin { transform-origin:0 0; animation:rt-spin 6s linear infinite; }
-@keyframes rt-spin { to { transform:rotate(360deg); } }
-
-/* Parts cards */
-.stock-title { margin:48px 0 0; }
-.parts { margin-top:16px; }
-.spec { display:inline-block; margin-bottom:12px; padding:4px 10px; border:1px solid #3b4350; border-radius:4px; background:#12161c; color:#f3c872; font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600; }
-
-@media (max-width:800px) { .gpu { margin-top:24px; } }
-@media (prefers-reduced-motion:reduce) { .spin { animation:none; } }
+/* Page-specific: small static line illustration */
+.gpu { margin-top:36px; max-width:320px; color:#3b4047; }
+.gpu svg { display:block; width:100%; height:auto; }
+@media (max-width:800px) { .gpu { margin-top:24px; max-width:240px; } }
 </style>
 <section class="hero">
 <div class="hero-in">
@@ -23,36 +14,26 @@
 <h1>Track your repair.</h1>
 <p>Enter the ticket number from your claim slip to see where your device is right now.</p>
 <div class="gpu" aria-hidden="true">
-<svg viewBox="0 0 480 170" preserveAspectRatio="xMidYMid meet">
-<defs>
-<linearGradient id="gShroud" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a414d"/><stop offset="1" stop-color="#0d1015"/></linearGradient>
-<g id="gRotor"><path d="M0 -34V34M-29 -17L29 17M-29 17L29 -17" stroke="#5a6270" stroke-width="7" stroke-linecap="round"/></g>
-</defs>
-<rect x="6" y="14" width="468" height="130" rx="12" fill="url(#gShroud)" stroke="#4b5361" stroke-width="1.2"/>
-<rect x="40" y="14" width="400" height="4" rx="2" fill="#e0ae52"/>
-<g transform="translate(130 80)"><circle r="46" fill="#080a0e" stroke="#46505f" stroke-width="2"/><g class="spin"><use href="#gRotor"/></g><circle r="9" fill="#e0ae52"/></g>
-<g transform="translate(260 80)"><circle r="46" fill="#080a0e" stroke="#46505f" stroke-width="2"/><g class="spin"><use href="#gRotor"/></g><circle r="9" fill="#e0ae52"/></g>
-<g transform="translate(390 80)"><circle r="46" fill="#080a0e" stroke="#46505f" stroke-width="2"/><g class="spin"><use href="#gRotor"/></g><circle r="9" fill="#e0ae52"/></g>
-<text x="28" y="136" font-family="Chakra Petch, sans-serif" font-size="12" font-weight="700" letter-spacing="2" fill="#e0ae52">GAMING OC</text>
+<svg viewBox="0 0 320 110" fill="none" stroke="currentColor" stroke-width="1.5">
+<rect x="2" y="2" width="316" height="84" rx="8"/>
+<circle cx="100" cy="44" r="30"/>
+<circle cx="100" cy="44" r="16"/>
+<circle cx="100" cy="44" r="3" fill="#c8a24a" stroke="none"/>
+<circle cx="220" cy="44" r="30"/>
+<circle cx="220" cy="44" r="16"/>
+<circle cx="220" cy="44" r="3" fill="#c8a24a" stroke="none"/>
+<path d="M60 86v10h200V86"/>
+<path d="M24 14h56" stroke="#c8a24a"/>
 </svg>
 </div>
 </div>
-<div class="board">
-<svg class="tr l" viewBox="0 0 48 100" preserveAspectRatio="none" aria-hidden="true">
-<path d="M0 20H14L24 30H48"/><path d="M0 44H30L38 52H48"/><path d="M0 68H10L20 58H48"/><path d="M0 86H22L30 78H48"/>
-<path class="pad" d="M0 20h0M0 44h0M0 68h0M0 86h0"/>
-</svg>
-<svg class="tr r" viewBox="0 0 48 100" preserveAspectRatio="none" aria-hidden="true">
-<path d="M0 26H18L28 36H48"/><path d="M0 50H26L34 42H48"/><path d="M0 72H12L22 62H48"/><path d="M0 90H30L38 82H48"/>
-<path class="pad" d="M0 26h0M0 50h0M0 72h0M0 90h0"/>
-</svg>
 <div class="chip">
 <div class="slip-top"><strong>Claim slip</strong><span>Example: RT-2026-0001</span></div>
+<label class="slip-label" for="ticket">Ticket number</label>
 <form method="GET" action="{{ route('status') }}" class="actions">
-<input class="mono" name="ticket" value="{{ request('ticket') }}" placeholder="RT-2026-0001" style="flex:1" required maxlength="20" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Ticket number">
+<input class="mono" id="ticket" name="ticket" value="{{ request('ticket') }}" placeholder="RT-2026-0001" required maxlength="20" autocomplete="off" autocapitalize="characters" spellcheck="false">
 <button class="btn">Check</button>
 </form>
-</div>
 </div>
 </div>
 </section>
@@ -96,10 +77,10 @@
 
 <h2 class="stock-title">Parts we keep in stock</h2>
 <div class="facts parts">
-<div><span class="spec">DDR4 8GB</span><strong>Memory</strong><span class="muted">DDR4 8GB sticks for desktops and laptops.</span></div>
-<div><span class="spec">256GB to 512GB</span><strong>SSD storage</strong><span class="muted">SATA and NVMe drives, 256GB to 512GB.</span></div>
-<div><span class="spec">1TB 2.5 inch</span><strong>Hard drives</strong><span class="muted">1TB 2.5 inch drives for laptops and backups.</span></div>
-<div><span class="spec">500W</span><strong>Power</strong><span class="muted">500W power supplies, laptop chargers and batteries.</span></div>
+<div><strong>Memory</strong><span class="muted">DDR4 8GB sticks for desktops and laptops.</span></div>
+<div><strong>SSD storage</strong><span class="muted">SATA and NVMe drives, 256GB to 512GB.</span></div>
+<div><strong>Hard drives</strong><span class="muted">1TB 2.5 inch drives for laptops and backups.</span></div>
+<div><strong>Power</strong><span class="muted">500W power supplies, laptop chargers and batteries.</span></div>
 </div>
     @endif
 @endsection
