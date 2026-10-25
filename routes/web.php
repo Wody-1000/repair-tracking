@@ -15,15 +15,7 @@ use App\Http\Middleware\EnsureRole;
 use App\Http\Middleware\SetDatabaseContext;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Roles
-|--------------------------------------------------------------------------
-| admin       everything (inventory, reports, users)
-| technician  works on tickets: status, labor, parts used
-| front_desk  receives devices: creates and edits tickets
-| public      customers check status by ticket number (no login)
-*/
+
 
 // Every route runs inside SetDatabaseContext: it tells PostgreSQL the caller's role and id for row-level security.
 Route::middleware(SetDatabaseContext::class)->group(function () {
