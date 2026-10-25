@@ -12,6 +12,7 @@
 <div class="hero-in">
 <div>
 <h1>Track your repair.</h1>
+@include('partials.shop-hours')
 <p>Enter the ticket number from your claim slip to see where your device is right now.</p>
 <div class="gpu" aria-hidden="true">
 <svg viewBox="0 0 320 110" fill="none" stroke="currentColor" stroke-width="1.5">

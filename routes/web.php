@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DatabaseAdminController;
 use App\Http\Controllers\PartController;
+use App\Http\Controllers\PublicPartController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TicketController;
@@ -29,6 +30,7 @@ Route::middleware(SetDatabaseContext::class)->group(function () {
 
     // Public
     Route::get('/', [StatusController::class, 'index'])->middleware('throttle:30,1')->name('status');
+    Route::get('/available-parts', [PublicPartController::class, 'index'])->middleware('throttle:60,1')->name('parts.available');
 
     // Guests only
     Route::middleware('guest')->group(function () {

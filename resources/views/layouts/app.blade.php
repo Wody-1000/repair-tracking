@@ -142,6 +142,7 @@
         <a class="brand" href="{{ auth()->check() ? route('dashboard') : route('status') }}"><span class="mark">RT</span> Repair Tracking</a>
         <nav>
             <a href="{{ route('status') }}" class="{{ request()->routeIs('status') ? 'on' : '' }}">Check status</a>
+            <a href="{{ route('parts.available') }}" class="{{ request()->routeIs('parts.available') ? 'on' : '' }}">Available parts</a>
             @auth
                 <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'on' : '' }}">Dashboard</a>
                 <a href="{{ route('tickets.index') }}" class="{{ request()->routeIs('tickets.*') ? 'on' : '' }}">Tickets</a>
