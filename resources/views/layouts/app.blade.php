@@ -150,7 +150,6 @@
                 @if (auth()->user()->isAdmin())
                     <a href="{{ route('reports.index') }}" class="{{ request()->routeIs('reports.*') ? 'on' : '' }}">Reports</a>
                     <a href="{{ route('users.index') }}" class="{{ request()->routeIs('users.*') ? 'on' : '' }}">Users</a>
-                    <a href="{{ route('admin.database') }}" class="{{ request()->routeIs('admin.database') ? 'on' : '' }}">Database</a>
                 @endif
             @endauth
         </nav>

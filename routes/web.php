@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DatabaseAdminController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\PublicPartController;
 use App\Http\Controllers\ReportController;
@@ -68,8 +67,6 @@ Route::middleware(SetDatabaseContext::class)->group(function () {
             Route::delete('/parts/{part}', [PartController::class, 'destroy'])->whereNumber('part')->name('parts.destroy');
 
             Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
-            Route::get('/admin/database', [DatabaseAdminController::class, 'index'])->name('admin.database');
-
             Route::get('/users', [UserController::class, 'index'])->name('users.index');
             Route::get('/users/{user}/edit', [UserController::class, 'edit'])->whereNumber('user')->name('users.edit');
             Route::put('/users/{user}', [UserController::class, 'update'])->whereNumber('user')->name('users.update');
