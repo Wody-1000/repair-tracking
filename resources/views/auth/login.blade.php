@@ -12,6 +12,6 @@
         <label style="font-weight:400"><input type="checkbox" name="remember" value="1" style="width:auto"> Remember me</label>
         <p><button class="btn">Log in</button></p>
     </form>
-    <p class="muted">No account? <a href="{{ route('register') }}">Register</a> (new accounts start as front desk).</p>
+    <p class="muted">Staff accounts are created by an administrator. Contact an admin for access.</p>
 </div>
 @endsection

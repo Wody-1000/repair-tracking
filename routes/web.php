@@ -14,8 +14,6 @@ use App\Http\Middleware\EnsureRole;
 use App\Http\Middleware\SetDatabaseContext;
 use Illuminate\Support\Facades\Route;
 
-
-
 // Every route runs inside SetDatabaseContext: it tells PostgreSQL the caller's role and id for row-level security.
 Route::middleware(SetDatabaseContext::class)->group(function () {
 
@@ -27,8 +25,6 @@ Route::middleware(SetDatabaseContext::class)->group(function () {
     Route::middleware('guest')->group(function () {
         Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
         Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1');
-        Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-        Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:10,1');
     });
 
     // Any logged-in user
@@ -68,6 +64,8 @@ Route::middleware(SetDatabaseContext::class)->group(function () {
 
             Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
             Route::get('/users', [UserController::class, 'index'])->name('users.index');
+            Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+            Route::post('/users', [UserController::class, 'store'])->name('users.store');
             Route::get('/users/{user}/edit', [UserController::class, 'edit'])->whereNumber('user')->name('users.edit');
             Route::put('/users/{user}', [UserController::class, 'update'])->whereNumber('user')->name('users.update');
             Route::delete('/users/{user}', [UserController::class, 'destroy'])->whereNumber('user')->name('users.destroy');

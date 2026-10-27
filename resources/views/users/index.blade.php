@@ -1,7 +1,10 @@
 @extends('layouts.app')
 @section('title', 'Users')
 @section('content')
-<h1>Staff accounts</h1>
+<div class="actions" style="justify-content:space-between;margin-bottom:12px">
+    <h1 style="margin:0">Staff accounts</h1>
+    <a class="btn" href="{{ route('users.create') }}">+ Create staff account</a>
+</div>
 <div class="card">
     <table>
         <thead><tr><th>Name</th><th>Email</th><th>Role</th><th></th></tr></thead>

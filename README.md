@@ -30,7 +30,7 @@ Covers the Web Development and Database Administration group outputs in one proj
 
 Technicians can only work on tickets that are unassigned or assigned to themselves. This is checked in `Ticket::canBeWorkedOnBy()` and again by the database (row-level security).
 
-New accounts created through Register always start as `front_desk`. The `role` column is not mass-assignable, so nobody can give themselves a higher role through a form. Only an admin can change roles.
+Public self-registration is disabled. Only an authenticated admin can create staff accounts from the Users page and assign an allowed role. The `role` column is not mass-assignable.
 
 ## Setup (Windows, macOS or Linux)
 
@@ -56,6 +56,8 @@ Requirements: PHP 8.2 or newer (with `pdo_pgsql`), Composer, PostgreSQL 14 or ne
 4. Open http://localhost:8000
 
 ### Demo accounts
+
+These accounts are for local demonstration only. Change or remove their credentials before deploying to production.
 
 | Role | Email | Password |
 |---|---|---|
@@ -232,7 +234,7 @@ Request flow example, adding a part to a ticket:
 | Eloquent models and relationships | `app/Models` |
 | Mass assignment | `$fillable` on every model. `User::role` is deliberately left out |
 | Validation | Form Requests in `app/Http/Requests` (`TicketRequest`, `PartRequest`) and inline `validate()` in other controllers |
-| Authentication | `AuthController`: login, logout, register (passwords are hashed by the `hashed` cast) |
+| Authentication | `AuthController`: login and logout; admins create accounts through `UserController` (passwords are hashed by the `hashed` cast) |
 | Role checks | `EnsureRole` middleware in `app/Http/Middleware`, applied in `routes/web.php`. `SetDatabaseContext` passes the same role to PostgreSQL for RLS |
 | CRUD on core entities | Tickets and Parts. Users also have edit and delete |
 | Laravel connection settings | `.env`, `config/database.php` (`pgsql` and `pgsql_readonly`), shown on the Database page |
